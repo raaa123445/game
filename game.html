@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Guessing Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            text-align: center;
+            border: 2px solid #007bff;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-container">
+    <h1>Number Guessing Game</h1>
+    <p>Guess a number between 1 and 100:</p>
+    <input type="number" id="guessInput" min="1" max="100">
+    <button id="guessBtn">Guess</button>
+    <div class="message" id="message"></div>
+    <button id="restartBtn" style="display:none;">Restart Game</button>
+</div>
+
+<script>
+    let randomNum = Math.floor(Math.random() * 100) + 1;
+    let attempts = 0;
+
+    document.getElementById('guessBtn').addEventListener('click', function() {
+        const userGuess = Number(document.getElementById('guessInput').value);
+        attempts++;
+        const messageDiv = document.getElementById('message');
+
+        if (userGuess === randomNum) {
+            messageDiv.textContent = `Congratulations! You guessed it in ${attempts} attempts.`;
+            document.getElementById('restartBtn').style.display = 'block';
+        } else if (userGuess < randomNum) {
+            messageDiv.textContent = 'Too low! Try again.';
+        } else {
+            messageDiv.textContent = 'Too high! Try again.';
+        }
+    });
+
+    document.getElementById('restartBtn').addEventListener('click', function() {
+        randomNum = Math.floor(Math.random() * 100) + 1;
+        attempts = 0;
+        document.getElementById('message').textContent = '';
+        document.getElementById('guessInput').value = '';
+        this.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>
